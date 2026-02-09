@@ -25,7 +25,7 @@ OBJ_TESTS		:= $(TESTS_SRCS:%.cpp=$(OBJS_DIR)/%.o)
 
 # --- Flags
 CPPFLAGS		:= -MMD -MP
-CXXFLAGS		:= -Wall -Wextra -std=c++20
+CXXFLAGS		:= -Wall -Wextra -std=c++23 -O2
 _COVERAGE_FLAGS	:= --coverage
 COVERAGE_FLAGS	:=
 
