@@ -18,7 +18,8 @@ pipeline {
           docker.image(env.CONTAINER).inside {
             sh '''
               set -e
-              make
+              cmake .
+	      make
             '''
           }
         }
