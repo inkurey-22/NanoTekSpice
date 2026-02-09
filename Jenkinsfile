@@ -15,7 +15,7 @@ pipeline {
   stage('Compilation (CMake)') {
     steps {
       script {
-        docker.image(env.CONTAINER).inside(--entrypoint=/bin/sh) {
+        docker.image(env.CONTAINER).inside('--entrypoint=/bin/sh') {
           sh '''
             set -euo pipefail
             cmake -S . -B build
