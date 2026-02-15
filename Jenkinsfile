@@ -26,7 +26,7 @@ pipeline {
       when { expression { currentBuild.currentResult == 'SUCCESS' } }
       steps {
         withCredentials([usernamePassword(credentialsId: env.MIRROR_CRED, usernameVariable: 'GIT_USER', passwordVariable: 'GIT_TOKEN')]) {
-          sh '''bash -c "\nset -e\ngit config user.name 'jenkins-bot'\ngit config user.email 'jenkins@inkurey.fr'\n# add remote (use token in URL, avoid showing token in logs)\ngit remote add mirror https://$GIT_USER:$GIT_TOKEN@github.com/EpitechPGE2-2025/G-OOP-400-LIL-4-1-tekspice-1.git || true\ngit fetch mirror || true\n# push to main\ngit push --force-with-lease mirror HEAD:refs/heads/main\n"'''
+          sh '''bash -c "\nset -e\ngit config user.name 'jenkins-bot'\ngit config user.email 'jenkins@inkurey.fr'\n# add remote (use token in URL, avoid showing token in logs)\ngit remote add mirror https://$GIT_USER:$GIT_TOKEN@github.com/inkurey-22/test.git || true\ngit fetch mirror || true\n# push to main\ngit push --force-with-lease mirror HEAD:refs/heads/main\n"'''
         }
       }
     }
