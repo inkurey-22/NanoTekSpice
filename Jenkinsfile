@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    CONTAINER = 'epitechcontent/epitest-docker:latest'
+    CONTAINER = 'inkurey22/my-epitest:latest'
     MIRROR_REPO = 'https://github.com/inkurey-22/test.git'
     MIRROR_CRED = 'jenkins-pat'
   }
