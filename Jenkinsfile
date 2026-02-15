@@ -17,6 +17,7 @@ pipeline {
         script {
           docker.image(env.CONTAINER).inside('-i') {
             sh '''
+              #!/bin/bash
               set -euo pipefail
               cmake -S . -B build
               cmake --build build -- -j$(nproc)
