@@ -16,12 +16,11 @@ pipeline {
       steps {
         script {
           docker.image(env.CONTAINER).inside('-i') {
-            sh '''
-              #!/bin/bash
+            sh script: '''
               set -euo pipefail
               cmake -S . -B build
               cmake --build build -- -j$(nproc)
-            '''
+            ''', shell: "/bin/bash"
           }
         }
       }
@@ -31,7 +30,7 @@ pipeline {
       when { expression { currentBuild.currentResult == 'SUCCESS' } }
       steps {
         withCredentials([usernamePassword(credentialsId: env.MIRROR_CRED, usernameVariable: 'GIT_USER', passwordVariable: 'GIT_TOKEN')]) {
-          sh '''
+          sh script: '''
             set -e
             git config user.name "jenkins-bot"
             git config user.email "jenkins@inkurey.fr"
@@ -40,7 +39,7 @@ pipeline {
             git fetch mirror || true
             # push to main
             git push --force-with-lease mirror HEAD:refs/heads/main
-          '''
+          ''', shell: "/bin/bash"
         }
       }
     }
