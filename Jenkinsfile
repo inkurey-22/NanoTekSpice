@@ -16,11 +16,7 @@ pipeline {
       steps {
         script {
           docker.image(env.CONTAINER).inside('-i') {
-            sh script: '''
-              set -euo pipefail
-              cmake -S . -B build
-              cmake --build build -- -j$(nproc)
-            ''', shell: "/bin/bash"
+            sh '''bash -c "\nset -euo pipefail\ncmake -S . -B build\ncmake --build build -- -j$(nproc)\n"'''
           }
         }
       }
@@ -30,16 +26,7 @@ pipeline {
       when { expression { currentBuild.currentResult == 'SUCCESS' } }
       steps {
         withCredentials([usernamePassword(credentialsId: env.MIRROR_CRED, usernameVariable: 'GIT_USER', passwordVariable: 'GIT_TOKEN')]) {
-          sh script: '''
-            set -e
-            git config user.name "jenkins-bot"
-            git config user.email "jenkins@inkurey.fr"
-            # add remote (use token in URL, avoid showing token in logs)
-            git remote add mirror https://$GIT_USER:$GIT_TOKEN@github.com/EpitechPGE2-2025/G-OOP-400-LIL-4-1-tekspice-1.git || true
-            git fetch mirror || true
-            # push to main
-            git push --force-with-lease mirror HEAD:refs/heads/main
-          ''', shell: "/bin/bash"
+          sh '''bash -c "\nset -e\ngit config user.name 'jenkins-bot'\ngit config user.email 'jenkins@inkurey.fr'\n# add remote (use token in URL, avoid showing token in logs)\ngit remote add mirror https://$GIT_USER:$GIT_TOKEN@github.com/EpitechPGE2-2025/G-OOP-400-LIL-4-1-tekspice-1.git || true\ngit fetch mirror || true\n# push to main\ngit push --force-with-lease mirror HEAD:refs/heads/main\n"'''
         }
       }
     }
