@@ -3,7 +3,7 @@ pipeline {
 
   environment {
     CONTAINER = 'epitechcontent/epitest-docker:latest'
-    MIRROR_REPO = 'https://github.com/EpitechPGE2-2025/G-OOP-400-LIL-4-1-tekspice-1.git'
+    MIRROR_REPO = 'https://github.com/inkurey-22/test.git'
     MIRROR_CRED = 'jenkins-pat'
   }
 
